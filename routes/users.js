@@ -19,7 +19,7 @@ router.get('/about-page', (req, res)=>{
 
 router.get('/user/:name', (req, res)=>{
     let name = req.params.name;
-    res.render('index', {
+    res.render('about', {
         pagename: "HOOOME",
         username: name
     });
