@@ -11,7 +11,7 @@ router.get('/', (req, res)=>{
     res.send("Welcome to Homepage");
 });
 
-router('/about-page', (req, res)=>{
+router.get('/about-page', (req, res)=>{
     res.send("Welcome to the About Page");
 });
 
