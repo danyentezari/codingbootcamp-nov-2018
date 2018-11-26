@@ -2,7 +2,6 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
-const passportjwt = require('passport-jwt');
 const secret = require('../config/keys').secret
 const User = require('../models/User');
 const router = express.Router();
@@ -10,6 +9,10 @@ const router = express.Router();
 
 router.get('/', (req, res)=>{
     res.send("Welcome to Homepage");
+});
+
+router('/about-page', (req, res)=>{
+    res.send("Welcome to the About Page");
 });
 
 router.get('/user/:name', (req, res)=>{
@@ -28,7 +31,6 @@ router.post('/register-survey', (req, res)=>{
         console.log('error is', err); // Tell is what happened
     });
 });
-
 
 router.post('/register-user', (req, res)=>{
 
@@ -71,7 +73,8 @@ router.post('/login', (req, res)=>{
     const password = req.body.password;
 
     // Check to see if the email exists in database
-    User.findOne({email}).then(user=>{
+    User.findOne({email})
+    .then(user=>{
 
         // If it does not exist
         if(!user){
@@ -98,7 +101,8 @@ router.post('/login', (req, res)=>{
                             res.send({
                                 message: "User is logged in",
                                 token: 'Bearer ' + token,
-                                name: user.name
+                                name: user.name,
+                                id: user.id
                             })
                         }
                     );
