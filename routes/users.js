@@ -8,7 +8,9 @@ const router = express.Router();
 
 
 router.get('/', (req, res)=>{
-    res.send("Welcome to Homepage!!!!!!!!");
+    res.render('index', {
+        pagename: "HOOOME"
+    });
 });
 
 router.get('/about-page', (req, res)=>{
@@ -17,7 +19,10 @@ router.get('/about-page', (req, res)=>{
 
 router.get('/user/:name', (req, res)=>{
     let name = req.params.name;
-    res.send("Welcome back " + name);
+    res.render('index', {
+        pagename: "HOOOME",
+        username: name
+    });
 });
 
 router.post('/register-survey', (req, res)=>{

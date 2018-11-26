@@ -3,12 +3,15 @@ const express = require('express'); // Import express into the file
 const mongoose = require('mongoose'); // Import mongoose into the file
 const bodyParser = require('body-parser'); // Import body-parser
 const cors = require('cors'); // Import CORS (Cross-Origin Resource-Sharing)
+const ejs = require('ejs');
 const passport = require('passport');
+
 
 const routes = require('./routes/users');
 
 const server = express(); // Make a new express server
 server.use(cors());
+server.set('view engine', 'ejs');
 server.use(bodyParser.urlencoded({extended: false}));
 server.use(bodyParser.json());
 server.use(passport.initialize());
