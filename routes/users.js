@@ -4,20 +4,11 @@ const jwt = require('jsonwebtoken');
 const passport = require('passport');
 const secret = require('../config/keys').secret
 const User = require('../models/User');
-const router = express.Router();
+const routers = express.Router();
 
 
-router.get('/', (req, res)=>{
-    res.render('index', {
-        pagename: "HOOOME"
-    });
-});
 
-router.get('/about-page', (req, res)=>{
-    res.send("Welcome to the About Page");
-});
-
-router.get('/user/:name', (req, res)=>{
+routers.get('/:name', (req, res)=>{
     let name = req.params.name;
     res.render('about', {
         pagename: "HOOOME",
@@ -25,7 +16,7 @@ router.get('/user/:name', (req, res)=>{
     });
 });
 
-router.post('/register-survey', (req, res)=>{
+routers.post('/register-survey', (req, res)=>{
     const newUser = new User(req.body);
 
     newUser.save()
@@ -37,7 +28,7 @@ router.post('/register-survey', (req, res)=>{
     });
 });
 
-router.post('/register-user', (req, res)=>{
+routers.post('/register-user', (req, res)=>{
 
     // Check database for new email address
     User.findOne({ email: req.body.email})
@@ -73,7 +64,7 @@ router.post('/register-user', (req, res)=>{
     })
 });
 
-router.post('/login', (req, res)=>{
+routers.post('/login', (req, res)=>{
     const email = req.body.email;
     const password = req.body.password;
 
@@ -122,7 +113,7 @@ router.post('/login', (req, res)=>{
 });
 
 // The private route
-router.get(
+routers.get(
     '/dashboard', 
     passport.authenticate('jwt', {session: false}), 
     (req, res)=>{
@@ -144,9 +135,9 @@ router.get(
     })
 });
 
-router.all('*', (req, res)=>{
+routers.all('*', (req, res)=>{
     res.send('404. Page does not exist');
 });
 
 
-module.exports = router;
+module.exports = routers;

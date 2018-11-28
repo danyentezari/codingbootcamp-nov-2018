@@ -6,8 +6,9 @@ const cors = require('cors'); // Import CORS (Cross-Origin Resource-Sharing)
 const ejs = require('ejs');
 const passport = require('passport');
 
-
-const routes = require('./routes/users');
+const routesUser = require('./routes/users');
+const routesProducts = require('./routes/products');
+const routesMain = require('./routes/main');
 
 const server = express(); // Make a new express server
 server.use(cors());
@@ -16,7 +17,10 @@ server.use(bodyParser.urlencoded({extended: false}));
 server.use(bodyParser.json());
 server.use(passport.initialize());
 require('./config/passport')(passport);
-server.use('/', routes);
+
+server.use('/users/', routesUser);
+server.use('/products/', routesProducts);
+server.use('/', routesMain);
 
 const dbURL = require('./config/keys').mongoURI;
 
